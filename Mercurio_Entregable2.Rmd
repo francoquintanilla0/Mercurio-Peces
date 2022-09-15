@@ -33,7 +33,6 @@ En donde el nombre de las variables son las siguientes:
 * X11 = estimación (mediante regresión) de la concentración de mercurio en el pez de 3 años (o promedio de mercurio cuando la edad no está disponible)
 * X12 = indicador de la edad de los peces (0: jóvenes; 1: maduros)
 
-
 # Variables Cuantitativas
 
 ## Medidas de tendencia central y Medidas de dispersión.
