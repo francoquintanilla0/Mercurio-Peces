@@ -1,0 +1,632 @@
+---
+title: "Mercurio"
+author: "Franco Quintanilla"
+date: "2022-09-05"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Importamos los datos 
+
+```{r}
+df = read.csv("/Users/francoquintanilla/Documents/R/mercurio.csv", row.names=1)
+head(df)
+```
+
+En donde el nombre de las variables son las siguientes:
+
+* X1 = número de indentificación
+* X2 = nombre del lago
+* X3 = alcalinidad (mg/l de carbonato de calcio)
+* X4 = PH
+* X5 = calcio (mg/l)
+* X6 = clorofila (mg/l)
+* X7 = concentración media de mercurio (parte por millón) en el tejido muscualar del grupo de peces estudiados en cada lago
+* X8 = número de peces estudiados en el lago
+* X9 = mínimo de la concentración de mercurio en cada grupo de peces
+* X10 = máximo de la concentración de mercurio en cada grupo de peces
+* X11 = estimación (mediante regresión) de la concentración de mercurio en el pez de 3 años (o promedio de mercurio cuando la edad no está disponible)
+* X12 = indicador de la edad de los peces (0: jóvenes; 1: maduros)
+
+
+# Variables Cuantitativas
+
+## Medidas de tendencia central y Medidas de dispersión.
+
+Para las medidas de tendencia de cada una de estas variables, vamos a sacar el promedio, la mediana, y la moda. Para las medidas de dispersión vamos a calcular la varianza y la desviación estándar.
+
+**Para la moda, vamos a definir la siguiente función, ya que R no cuenta con la función de la moda que a nosotros nos interesa.**
+
+```{r}
+moda <- function(x) 
+  {
+   return(as.numeric(names(which.max(table(x)))))
+  }
+```
+
+* Alcalinidad (mg/l de carbonato de calcio)
+
+```{r}
+m_X3 = mean(df$X3)
+cat("El promedio de la Alcalinidad es de:", m_X3, "\n")
+
+# Median
+med_X3 = median(df$X3)
+cat("La mediana de la Alcalinidad es de:", med_X3, "\n")
+
+# Mode
+moda_X3 = moda(df$X3)
+cat("La moda de la Alcalinidad es de:", moda_X3, "\n")
+
+# Variance
+v_X3 = var(df$X3)
+cat("La varianza de la Alcalinidad es de:", v_X3, "\n")
+
+# Standard deviation
+sd_X3 = sd(df$X3)
+cat("La desviación estandar de la Alcalinidad es de:", sd_X3, "\n")
+```
+
+* PH
+
+```{r}
+m_X4 = mean(df$X4)
+cat("El promedio del PH es de:", m_X4, "\n")
+
+# Median
+med_X4 = median(df$X4)
+cat("La mediana del PH es de:", med_X4, "\n")
+
+# Mode
+moda_X4 = moda(df$X4)
+cat("La moda del PH es de:", moda_X4, "\n")
+
+# Variance
+v_X4 = var(df$X4)
+cat("La varianza del PH es de:", v_X4, "\n")
+
+# Standard deviation
+sd_X4 = sd(df$X4)
+cat("La desviación estandar del PH es de:", sd_X4, "\n")
+```
+
+* Calcio (mg/l)
+
+```{r}
+m_X5 = mean(df$X5)
+cat("El promedio del Calcio es de:", m_X5, "\n")
+
+# Median
+med_X5 = median(df$X5)
+cat("La mediana del Calcio es de:", med_X5, "\n")
+
+# Mode
+moda_X5 = moda(df$X5)
+cat("La moda del Calcio es de:", moda_X5, "\n")
+
+# Variance
+v_X5 = var(df$X5)
+cat("La varianza del Calcio es de:", v_X5, "\n")
+
+# Standard deviation
+sd_X5 = sd(df$X5)
+cat("La desviación estandar del Calcio es de:", sd_X5, "\n")
+```
+
+* Clorofila (mg/l)
+
+```{r}
+m_X6 = mean(df$X6)
+cat("El promedio de la Clorofila es de:", m_X6, "\n")
+
+# Median
+med_X6 = median(df$X6)
+cat("La mediana de la Clorofila es de:", med_X6, "\n")
+
+# Mode
+moda_X6 = moda(df$X6)
+cat("La moda de la Clorofila es de:", moda_X6, "\n")
+
+# Variance
+v_X6 = var(df$X6)
+cat("La varianza de la Clorofila es de:", v_X6, "\n")
+
+# Standard deviation
+sd_X6 = sd(df$X6)
+cat("La desviación estandar de la Clorofila es de:", sd_X6, "\n")
+```
+
+* Concentración media de mercurio (parte por millón) en el tejido muscualar del grupo de peces estudiados en cada lago
+
+```{r}
+m_X7 = mean(df$X7)
+cat("El promedio de la Concentración de mercurio es de:", m_X7, "\n")
+
+# Median
+med_X7 = median(df$X7)
+cat("La mediana de la Concentración de mercurio es de:", med_X7, "\n")
+
+# Mode
+moda_X7 = moda(df$X7)
+cat("La moda de la Concentración de mercurio es de:", moda_X7, "\n")
+
+# Variance
+v_X7 = var(df$X7)
+cat("La varianza de la Concentración de mercurio es de:", v_X7, "\n")
+
+# Standard deviation
+sd_X7 = sd(df$X7)
+cat("La desviación estandar de la Concentración de mercurio es de:", sd_X7, "\n")
+```
+
+* Número de peces estudiados en el lago
+
+```{r}
+m_X8 = mean(df$X8)
+cat("El promedio del Número de peces estudiados es de:", m_X8, "\n")
+
+# Median
+med_X8 = median(df$X8)
+cat("La mediana del Número de peces estudiados es de:", med_X8, "\n")
+
+# Mode
+moda_X8 = moda(df$X8)
+cat("La moda del Número de peces estudiados es de:", moda_X8, "\n")
+
+# Variance
+v_X8 = var(df$X8)
+cat("La varianza del Número de peces estudiados es de:", v_X8, "\n")
+
+# Standard deviation
+sd_X8 = sd(df$X8)
+cat("La desviación estandar del Número de peces estudiados es de:", sd_X8, "\n")
+```
+
+* Mínimo de la concentración de mercurio en cada grupo de peces
+
+```{r}
+m_X9 = mean(df$X9)
+cat("El promedio del Mínimo de la concentración de mercurios es de:", m_X9, "\n")
+
+# Median
+med_X9 = median(df$X9)
+cat("La mediana del Mínimo de la concentración de mercurio es de:", med_X9, "\n")
+
+# Mode
+moda_X9 = moda(df$X9)
+cat("La moda del Mínimo de la concentración de mercurio es de:", moda_X9, "\n")
+
+# Variance
+v_X9 = var(df$X9)
+cat("La varianza del Mínimo de la concentración de mercurio es de:", v_X9, "\n")
+
+# Standard deviation
+sd_X9 = sd(df$X9)
+cat("La desviación estandar del Mínimo de la concentración de mercurio es de:", sd_X9, "\n")
+```
+
+* Máximo de la concentración de mercurio en cada grupo de peces
+
+```{r}
+m_X10 = mean(df$X10)
+cat("El promedio del Máximo de la concentración de mercurios es de:", m_X10, "\n")
+
+# Median
+med_X10 = median(df$X10)
+cat("La mediana del Máximo de la concentración de mercurio es de:", med_X10, "\n")
+
+# Mode
+moda_X10 = moda(df$X10)
+cat("La moda del Máximo de la concentración de mercurio es de:", moda_X10, "\n")
+
+# Variance
+v_X10 = var(df$X10)
+cat("La varianza del Máximo de la concentración de mercurio es de:", v_X10, "\n")
+
+# Standard deviation
+sd_X10 = sd(df$X10)
+cat("La desviación estandar del Máximo de la concentración de mercurio es de:", sd_X10, "\n")
+```
+
+* Estimación de la concentración de mercurio en el pez de 3 años (o promedio de mercurio cuando la edad no está disponible)
+
+```{r}
+m_X11 = mean(df$X11)
+cat("El promedio de la Estimación de la concentración de mercurio es de:", m_X11, "\n")
+
+# Median
+med_X11 = median(df$X11)
+cat("La mediana de la Estimación de la concentración de mercurio es de:", med_X11, "\n")
+
+# Mode
+moda_X11 = moda(df$X11)
+cat("La moda de la Estimación de la concentración de mercurio es de:", moda_X11, "\n")
+
+# Variance
+v_X11 = var(df$X11)
+cat("La varianza de la Estimación de la concentración de mercurio es de:", v_X11, "\n")
+
+# Standard deviation
+sd_X11 = sd(df$X11)
+cat("La desviación estandar de la Estimación de la concentración de mercurio es de:", sd_X11, "\n")
+```
+
+## Visualización de las medidas de tendencia central y de dispersión
+
+Primero hacemos el boxplot juntando los datos que tienen la misma unidad $\cfrac{mg}{l}$
+
+```{r}
+boxplot(df$X3, df$X5, df$X6, main="Nivel", ylab="mg/l", col=c("#008B45", "#548B54", "#98FB98"), names=c("Alcalinidad", "Calcio", "Clorofila"))
+```
+
+Como podemos ver, el tanto el calcio como la clorofila tienen outliers, por lo que vamos a limpiar esos datos más adelante en base a los quantiles.
+
+```{r}
+boxplot(df$X9, df$X7, df$X10, df$X11, main="Concentración de mercurio en los peces", ylab="concentración", col=c("#98F5FF", "#87CEFA", "#2F4F4F", "#E0FFFF"), names=c("Minima", "Media", "Maxima", "Estimación"))
+```
+
+De igual manera, en la concentración de mercurio vamos a hacer una limpia de los outliers, para tener un modelo más limpio y consiso.
+
+```{r}
+par(mfrow=c(1,2))
+boxplot(df$X4, main="PH", ylab="concentración", col="thistle1")
+boxplot(df$X8, main="Número de peces estudiados", ylab="cantidad", col="palevioletred1")
+```
+
+En el caso del PH vemos que no hay outliers, y todos los datos se ecnuentran dentro de los quantiles. Por otra parte, aunque en el número de peces estudiados tenemos varios ouliers, no los vamos a eliminar, en este caso solo nos sirve para ver en donde está centrada la media de la cantidad de peces estudiados en cada lago.
+
+# Variables cualitativas
+
+* Indicador de la edad de los peces (0: jóvenes; 1: maduros)
+
+```{r}
+m_X12 = mean(df$X12)
+cat("El promedio de la edad de los peces es de:", m_X12, "\n")
+
+# Median
+med_X12 = median(df$X12)
+cat("La mediana de la edad de los peces es de:", med_X12, "\n")
+
+# Mode
+moda_X12 = moda(df$X12)
+cat("La moda de la edad de los peces es de:", moda_X12, "\n")
+
+# Variance
+v_X12 = var(df$X12)
+cat("La varianza de la edad de los peces es de:", v_X12, "\n")
+
+# Standard deviation
+sd_X12 = sd(df$X12)
+cat("La desviación estandar de la edad de los peces es de:", sd_X12, "\n")
+```
+
+# Visualización
+
+```{r}
+barplot(table(df$X12), col=c("turquoise4", "turquoise2"), names=c("jóvenes", "maduros"))
+```
+
+# Limpieza de datos
+
+Para la limpieza de los datos, vamos a hacer una función para la eliminación de los outliers.
+
+```{r}
+f_outliers <- function(x, removeNA = TRUE)
+  {
+  qrts <- quantile(x, probs = c(0.25, 0.75), na.rm = removeNA)
+  caps <- quantile(x, probs = c(.05, .95), na.rm = removeNA)
+  iqr <- qrts[2] - qrts[1]
+  x[x<qrts[1] - 1.5*iqr] <- caps[1]
+  x[x>qrts[2] + 1.5*iqr] <- caps[2]
+  x
+  }
+```
+
+# Calcio y Clorofila
+
+```{r}
+x5 <- f_outliers(df$X5)
+x6 <- f_outliers(df$X6)
+boxplot(x5, x6, col=c("#548B54", "#98FB98"), names=c("Calcio", "Clorofila"))
+
+```
+
+# Minima y Estimación
+```{r}
+x9 <- f_outliers(df$X9)
+x11 <- f_outliers(df$X11)
+boxplot(x9, x11, col=c("#98F5FF", "#E0FFFF"), names=c("Minima", "Estimación"))
+```
+
+Con los datos limpios, vamos a hacer la visualización de los histogramas
+
+```{r}
+par(mfrow=c(2,2))
+
+hist(df$X3, col="#FFA07A", main="Distribución de la Alcalinidad")
+hist(df$X4, col="#EE9572", main="Distribución del PH")
+hist(x5, col="#CD8162", main="Distribución del Calcio")
+hist(x6, col="#8B5742", main="Distribución de la Clorofila")
+```
+
+```{r}
+par(mfrow=c(3,2))
+
+hist(df$X7, col="#C1FFC1", main="Distribución de la concentración media de mercurio")
+hist(df$X8, col="#B4EEB4", main="Distribución del número de peces")
+hist(x9, col="#8FBC8F", main="Distribución de la mínima concentración de mercurio")
+hist(df$X10, col="#698B69", main="Distribución de la maxima concentración de mercurio")
+hist(x11, col="#EE6363", main="Distribución de concentración de mercurio estimada")
+```
+
+Después de esto, vamos a hacer el analisis de los datos mediante:
+
+* Regresión lineal simple
+* ANOVA
+
+Escogimos estos 2 analsisi de datos , ya que estamos haciendo nuestra investigación en base a la siguiente pregunta: 
+
+* ¿Cuáles son los principales factores que influyen en el nivel de contaminación por mercurio en los peces de los lagos de Florida?
+
+Por lo que decidimos hacer los siguientes análisis.
+
+# Regresión lineal simple
+
+Hacemos la matriz de correlación
+
+```{r}
+cm_ph = subset(df, select = c(X3, X4, X5, X6, X7, X8, X9, X10, X11, X12))
+cor(cm_ph)
+```
+
+Con esta matriz, nos vamos a dar cuenta de las variables que más correlación tienen con nuetsra variable objetivo.
+
+Tambien, vemos que hay variables de más, asi que solo vamos a usar, X3, X4, X5, X6, con X9
+
+```{r}
+cm_ph = subset(df, select = c(X3, X4, X5, X6, X9))
+corr = cor(cm_ph)
+corr
+```
+
+Podemos ver la matriz de correlación de manera más visual.
+
+```{r}
+library(ggcorrplot)
+ggcorrplot(corr, lab = TRUE, type = "upper")
+```
+
+
+## Modelo
+
+Definimos nuestras variables
+
+```{r}
+# PH
+x = df$X4
+
+# Minimo de la concentración de mercurio
+y = x9
+```
+
+Visualizamos la tendencia
+
+```{r}
+plot(x, y, main="PH vs Concentración de mercurio", xlab="PH", ylab="Mercurio")
+```
+
+Hacemos el fit para el modelo lineal en base al PH
+
+```{r}
+model = lm(y ~ x)
+summary(model)
+```
+
+Nuestra ecuación que define el valor esperado de Y, nos queda que:
+
+$$ E(Y) = 0.878 - 0.0919 x,$$
+
+Con los coefeicnetes del modelo de regresión lineal, lo ploteamos para ver el comportamiento con los datos.
+
+```{r}
+par(mfrow=c(1,1))
+plot(x, y, main="PH vs Concentración de mercurio", xlab="PH", ylab="Mercurio")
+abline(model, col="blue")
+```
+
+Tambien, podemos obtener los intervalos de confianza de nuestro modelo con un nivel de confianza del 95 %.
+
+```{r}
+confint(model, level=0.95)
+```
+
+Donde para visualizar mejor los intervalor, los podemos agregar a nuestro grafico.
+
+```{r}
+Yp = predict(object=model, interval="prediction", level=0.95)
+datos1 = cbind(df, Yp)
+```
+
+```{r}
+library(ggplot2)
+ggplot(datos1, aes(x=x, y=y)) + geom_point() + geom_line(aes(y=lwr), color="red", linetype="dashed") +
+geom_line(aes(y=upr), color="red", linetype="dashed") + geom_smooth(method=lm, formula=y~x, se=TRUE, level=0.95, col='blue', fill='pink2') +
+theme_light() + labs(title="PH vs Concentración de mercurio", x="PH", y="Mercurio")
+```
+
+## Análisis de los residuos
+
+### Normalidad de los residuos
+
+Para la pureba de normalidad de residuos, hacemos una prueba de hipótesis con el shapiro test.
+
+```{r}
+shapiro.test(model$residuals)
+```
+
+Pero como es dificil de interpretar lo, agregaremos sus respectuvas gráficas.
+
+**QQ-Plot**
+
+```{r}
+qqnorm(model$residuals)
+qqline(model$residuals, col="blue")
+```
+
+Como podemos ver, el modelo se comporta como una distribución con colas gruesas es decir, que tiene baja curtosis, del tipo  platicúrtica, pero que tambien tiene una asimetría positiva es decir que su sesgo va a la derecha. 
+
+Otra manera de visualizar los datos, es con la ayuda de un histograma, lo cual es lo siguiente que vamos a hacer.
+
+**Histograma**
+
+```{r}
+# Histograma
+hist(model$residuals, freq=FALSE, breaks=10, col="palevioletred2")
+
+# Comportamiento de los residuos
+lines(density(model$residuals), col="black")
+
+# Comportamiento de los residuos estandarizados.
+curve(dnorm(x, mean=mean(model$residuals), sd=sd(model$residuals)), from=-0.9,to=0.9, add=TRUE, col="blue",lwd=2)
+```
+
+Con el histograma podemos ver el comportamiento que concluimos con la ayuda de las pruebas de normalidad, que nuestro modelo cuenta con una curtosis platicúrtica, y lo más visual es que tiene una asimetría positiva lo que nos dice que su sesgo va a la derecha. 
+
+### Verificación de media cero
+
+```{r}
+t.test(model$residuals)
+```
+
+Desde aqui podemos ver que, por el valor de $t^* = 3.6434e-16$ a comparación de $t_0$, es que $t^*$ es muy cercano a 0, por lo que esta dentro de los limites para poder aceptar la hipótesis de que los errores se comportan como una normal.
+
+Por ultimo, nos queda hacer el análisis de la homocedasticidad.
+
+### Homocedasticidad
+
+```{r}
+plot(model$fitted.values, model$residuals)
+abline(h=0, col="blue")
+```
+
+Con este análisis de la homocedasticidad nos damos cuenta de una buena vez por todas que nuestro modelo es el adecuado para definir la comparación entre el PH y la concentración de mercurio, ya que se ve que el modelo cuenta con homocedasticidad, y sus residuos no cuentan con una tendencia especifica.
+
+
+# ANOVA
+
+Definimos nuestras variables para el ANOVA.
+
+```{r}
+# La edad de los peces
+edad = df$X12
+
+# Minimo de la concentración de mercurio
+merc = x9
+```
+
+# Hacemos el ANOVA
+
+```{r}
+anova = aov(merc ~ edad)
+summary(anova)
+```
+
+## Análisis de cada tratamiento
+
+```{r}
+m = tapply(merc, edad, mean)
+cat("Media de la concentración de mercurio por la edad de los peces:", m, "\n")
+
+s = tapply(merc, edad, sd)
+cat("Desviación estandar de la concentración de mercurio por la edad de los peces:", s, "\n")
+
+n = tapply(merc, edad, length)
+cat("Tamaño de la muestra de la concentración de mercurio por la edad de los peces:", n, "\n")
+```
+
+## Intervalos de confianza
+
+```{r}
+sm = s/sqrt(n)
+E = abs(qt(0.025,n-1))*sm
+
+In = m - E
+cat("Intervalos de confianza inferiores:", In, "\n")
+
+Sup = m + E
+cat("Intervalos de confianza superiores:", Sup, "\n")
+```
+
+## Gráfico de los intervalos de confianza de cada grupo de edad de peces
+
+```{r}
+plot(0, ylim=c(0,2.5), xlim=c(0,0.5), yaxt="n", ylab="",xlab="Concentración de mercurio", main="Concentración de mercurio en los peces")
+axis(2,at=c(1:2),labels=c("Jovenes","Maduros"))
+
+for(i in 1:2)
+  {
+arrows(In[i],i,Sup[i],i, angle=90, code=3, length = 0.1, lwd = 2,col=i+5)
+points(m[i], i, pch=19, cex=1.1,col=i+5)
+}
+
+abline(v=mean(merc),lty=3,col="blue")
+```
+
+Desde aqui podemos observar que la concentración de mercurio por la edad de los peces no afecta, ya que una contiene a la otra en los intervalos de confianza, por lo que se podría deccir que son iguales, donde además, ambas se ecneuntran dentro de la media poblacional.
+
+## Verificación de supuestos
+
+**Prueba de normalidad QQ plot**
+
+```{r}
+qqnorm(anova$residuals)
+qqline(anova$residuals, col="blue")
+```
+
+**Homocedastícidad**
+
+```{r}
+plot(anova$fitted.values, anova$residuals, ylab="Residuos", xlab="Valores estimados")
+abline(h=0, col="blue")
+```
+
+**Independencia**
+
+```{r}
+plot(c(1:sum(n)), model$residuals, xlab="Orden de la observación", ylab="Residuos", type = "b")
+abline(h=0, col="blue")
+```
+
+Después de hacer el analisis de las varianzas, podemos obvervar que la edad de los peces, ya sean jovenes o maduros, no afecta en la concentración de mercurio en los peces de los distintos lagos. Aunque pensemos que esto pueda estar influenciado ya que la cantidad de peces en la muestra favorece a los peces maduros, ya que son mucho más la cantidad que los peces jovenes, pero aun con esta diferencia podemos observar que las concentraciones de mercurio son las mismas.
+
+
+# Conclusiones
+
+Después de hacer todo el análisis estadistico en base a la concentración de mercurio en los peces, podemos observar que:
+
+* Gracias a la regresión lineal simple, podemos ver que cuando un lago tiene mayor PH, es decir, el agua es más alcalina, la concentración de mercurio en los peces va a disminuir, por el contrario si el agua es más acida, entonces la concentración de mercurio en los peces va a ser mayor.
+
+* Después de hacer el análisis de varianza en base a la edad de los peces y su concentración de mercurio, podemos responder otra de las preguntas, y es que NO habrá diferencia significativa entre la concentración de mercurio por la edad de los peces, y esto  lo podemos demostrar gracias a los intervalos de confianza.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
